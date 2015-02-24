@@ -1,5 +1,5 @@
 # Set base image to Debian
-FROM debian:wheezy
+FROM graanjonlo/erlang:17.4
 
 # File Author / Maintainer
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
@@ -20,12 +20,7 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 
 # CouchDB dependencies
 RUN \
-    apt-get install -y lsb-release && \
-    echo "deb http://binaries.erlang-solutions.com/debian `lsb_release -cs` contrib" | tee /etc/apt/sources.list.d/erlang-solutions.list && \
-    wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add - && \
-    apt-get update -y && \
-    apt-get install -y libmozjs185-1.0 libmozjs185-dev erlang-nox=1:17.4 erlang-dev=1:17.4 build-essential libnspr4 libnspr4-0d libnspr4-dev libcurl4-openssl-dev curl libicu-dev
-
+    apt-get install -y libmozjs185-1.0 libmozjs185-dev build-essential libnspr4 libnspr4-0d libnspr4-dev libcurl4-openssl-dev curl libicu-dev
 
 # Add CouchDB user
 RUN \
@@ -62,5 +57,4 @@ EXPOSE 5984
 
 # Define default command.
 CMD ["couchdb"]
-
 
